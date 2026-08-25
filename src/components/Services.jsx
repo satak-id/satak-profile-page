@@ -5,7 +5,7 @@ import layanan1 from "@/assets/layanan1.png";
 import layanan2 from "@/assets/layanan2.png";
 import layanan3 from "@/assets/layanan3.png";
 
-export function Services() {
+export function Services({ onNavigateToInternetService }) {
   const services = [
     {
       id: "internet",
@@ -52,7 +52,16 @@ export function Services() {
               showGlare={true}
               className="w-full h-full"
             >
-              <div className="p-6 sm:p-7 flex flex-col items-center justify-between h-full space-y-5 text-center bg-white hover:bg-blue-50/30 transition-colors rounded-3xl border border-gray-100 shadow-xs">
+              <div
+                onClick={() => {
+                  if (service.id === "internet" && onNavigateToInternetService) {
+                    onNavigateToInternetService();
+                  }
+                }}
+                className={`p-6 sm:p-7 flex flex-col items-center justify-between h-full space-y-5 text-center bg-white hover:bg-blue-50/30 transition-all duration-300 rounded-3xl border-2 border-blue-200/90 hover:border-blue-600 shadow-sm hover:shadow-xl ${
+                  service.id === "internet" ? "cursor-pointer" : ""
+                }`}
+              >
                 
                 {/* Top Centered 3D Icon Box */}
                 <div className="w-24 h-24 sm:w-28 sm:h-28 flex-shrink-0 bg-blue-50/70 rounded-2xl flex items-center justify-center p-2.5 transition-transform duration-300 shadow-inner mx-auto">
@@ -77,13 +86,18 @@ export function Services() {
 
                 {/* Centered Footer Link */}
                 <div className="pt-2 w-full flex justify-center">
-                  <a
-                    href="#"
-                    className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-blue-600 hover:text-blue-700 transition-transform"
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (service.id === "internet" && onNavigateToInternetService) {
+                        onNavigateToInternetService();
+                      }
+                    }}
+                    className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-blue-600 hover:text-blue-700 transition-transform cursor-pointer"
                   >
                     Selengkapnya
                     <ArrowRight className="w-4 h-4" />
-                  </a>
+                  </button>
                 </div>
 
               </div>

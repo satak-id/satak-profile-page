@@ -176,7 +176,7 @@ export function Coverage() {
               return (
                 <div
                   key={idx}
-                  className="relative z-10 bg-white rounded-3xl p-6 sm:p-7 border border-gray-100 shadow-md hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 text-center flex flex-col items-center justify-between group"
+                  className="relative z-10 bg-white rounded-3xl p-6 sm:p-7 border-2 border-blue-200/90 hover:border-blue-600 shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 text-center flex flex-col items-center justify-between group"
                 >
                   {/* Step Number Circle Badge */}
                   <div className="w-10 h-10 rounded-full bg-blue-600 text-white font-extrabold text-base flex items-center justify-center shadow-lg shadow-blue-600/30 mb-4 group-hover:scale-110 transition-transform">
