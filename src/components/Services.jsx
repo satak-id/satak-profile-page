@@ -5,7 +5,11 @@ import layanan1 from "@/assets/layanan1.png";
 import layanan2 from "@/assets/layanan2.png";
 import layanan3 from "@/assets/layanan3.png";
 
-export function Services({ onNavigateToInternetService }) {
+export function Services({
+  onNavigateToInternetService,
+  onNavigateToSatakCloud,
+  onNavigateToSaasDigital,
+}) {
   const services = [
     {
       id: "internet",
@@ -26,6 +30,16 @@ export function Services({ onNavigateToInternetService }) {
       image: layanan3,
     },
   ];
+
+  const handleCardClick = (serviceId) => {
+    if (serviceId === "internet" && onNavigateToInternetService) {
+      onNavigateToInternetService();
+    } else if (serviceId === "cloud" && onNavigateToSatakCloud) {
+      onNavigateToSatakCloud();
+    } else if (serviceId === "digital" && onNavigateToSaasDigital) {
+      onNavigateToSaasDigital();
+    }
+  };
 
   return (
     <section id="layanan" className="py-14 lg:py-20 bg-white">
@@ -53,14 +67,8 @@ export function Services({ onNavigateToInternetService }) {
               className="w-full h-full"
             >
               <div
-                onClick={() => {
-                  if (service.id === "internet" && onNavigateToInternetService) {
-                    onNavigateToInternetService();
-                  }
-                }}
-                className={`p-6 sm:p-7 flex flex-col items-center justify-between h-full space-y-5 text-center bg-white hover:bg-blue-50/30 transition-all duration-300 rounded-3xl border-2 border-blue-200/90 hover:border-blue-600 shadow-sm hover:shadow-xl ${
-                  service.id === "internet" ? "cursor-pointer" : ""
-                }`}
+                onClick={() => handleCardClick(service.id)}
+                className="p-6 sm:p-7 flex flex-col items-center justify-between h-full space-y-5 text-center bg-white hover:bg-blue-50/30 transition-all duration-300 rounded-3xl border-2 border-blue-200/90 hover:border-blue-600 shadow-sm hover:shadow-xl cursor-pointer"
               >
                 
                 {/* Top Centered 3D Icon Box */}
@@ -89,9 +97,7 @@ export function Services({ onNavigateToInternetService }) {
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
-                      if (service.id === "internet" && onNavigateToInternetService) {
-                        onNavigateToInternetService();
-                      }
+                      handleCardClick(service.id);
                     }}
                     className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-blue-600 hover:text-blue-700 transition-transform cursor-pointer"
                   >

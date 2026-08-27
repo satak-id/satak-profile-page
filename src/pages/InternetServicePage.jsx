@@ -11,6 +11,8 @@ import {
   Hotel,
   Building,
   Sparkles,
+  ChevronDown,
+  ChevronUp,
 } from "lucide-react";
 import layanan1 from "@/assets/layanan1.png";
 import layanan2 from "@/assets/layanan2.png";
@@ -20,7 +22,7 @@ import promoImg from "@/assets/promo.png";
 
 const WA_PHONE_NUMBER = "6281947556108";
 
-export function InternetServicePage({ onBackToHome, initialCategory = "school" }) {
+export function InternetServicePage({ onBackToHome, onNavigateToSubscribe, initialCategory = "school" }) {
   const [activeCategory, setActiveCategory] = useState(initialCategory);
 
   const categories = [
@@ -39,7 +41,14 @@ export function InternetServicePage({ onBackToHome, initialCategory = "school" }
         speed: "50 Mbps",
         price: "299.000",
         image: layanan1,
-        features: ["Filter Konten Kominfo Safe", "Unlimited No FUP", "Support 24/7"],
+        features: [
+          "Filtering Konten Kominfo Safe",
+          "Unlimited Internet Tanpa FUP",
+          "Include ONT / Modem High Range",
+          "Gratis Biaya Pasang Baru Rp 500.000",
+          "Ideal untuk 1 - 15 Device Sekolah",
+          "Support Layanan 24/7 & Response Teknis",
+        ],
       },
       {
         id: "school-plus",
@@ -49,7 +58,15 @@ export function InternetServicePage({ onBackToHome, initialCategory = "school" }
         price: "499.000",
         isPopular: true,
         image: layanan1,
-        features: ["Prioritas Ujian CBT Online", "Filter Konten Kominfo Safe", "Gratis Router Dual-Band"],
+        features: [
+          "Prioritas Ujian CBT Online",
+          "Filtering Konten Kominfo Safe",
+          "Gratis Router Enterprise Dual-Band",
+          "Unlimited Internet Tanpa FUP",
+          "Ideal untuk 15 - 40 Device Sekolah",
+          "Gratis Biaya Pasang Baru Rp 500.000",
+          "Dukungan Teknisi On-Site Prioritas",
+        ],
       },
       {
         id: "school-pro",
@@ -58,7 +75,14 @@ export function InternetServicePage({ onBackToHome, initialCategory = "school" }
         speed: "200 Mbps",
         price: "899.000",
         image: layanan1,
-        features: ["Prioritas Lab Komputer", "Bandwidth Dedicated Ujian", "On-Site Support Teknisi"],
+        features: [
+          "Prioritas Bandwidth Lab Komputer",
+          "Dedicated Bandwidth Ujian CBT",
+          "Sistem Subnet Wifi Area Sekolah",
+          "On-Site Support Teknisi Prioritas",
+          "Unlimited Tanpa FUP & Garansi SLA",
+          "Ideal untuk 40 - 100 Device",
+        ],
       },
       {
         id: "school-ultra",
@@ -67,7 +91,14 @@ export function InternetServicePage({ onBackToHome, initialCategory = "school" }
         speed: "500 Mbps",
         price: "1.499.000",
         image: layanan1,
-        features: ["Multi-Subnet Campus Network", "Dedicated SLA 99.9%", "Personal Account Manager"],
+        features: [
+          "Multi-Subnet Campus Network System",
+          "Dedicated SLA 99.9% Always On",
+          "Personal Account Manager Khusus",
+          "Backup Link Failover Redundancy",
+          "Free IP Public Static Dual Stack",
+          "Response Teknis Prioritas < 15 Menit",
+        ],
       },
     ],
     umkm: [
@@ -78,7 +109,14 @@ export function InternetServicePage({ onBackToHome, initialCategory = "school" }
         speed: "150 Mbps",
         price: "250.000",
         image: promoImg,
-        features: ["Koneksi Kasir POS Fast", "Unlimited Tanpa FUP", "Router Wi-Fi Gratis"],
+        features: [
+          "Koneksi Kasir POS Fast & Smooth",
+          "Unlimited Internet Tanpa FUP",
+          "Include ONT / Modem High Range",
+          "Gratis Biaya Pasang Rp 500.000",
+          "Ideal untuk 1 - 12 Device Usaha",
+          "Support Kendala Cepat 24/7",
+        ],
       },
       {
         id: "nexus",
@@ -88,7 +126,14 @@ export function InternetServicePage({ onBackToHome, initialCategory = "school" }
         price: "365.000",
         isPopular: true,
         image: layanan2,
-        features: ["Terpisah Wi-Fi Tamu & Kasir", "Enterprise Dual-Band Router", "Bebas Biaya Pasang Baru"],
+        features: [
+          "Pemisahan Wi-Fi Tamu & Kasir POS",
+          "Enterprise Dual-Band Router AC1200",
+          "Bebas Biaya Pasang Baru Rp 500.000",
+          "Support Live Streaming & CCTV 4K",
+          "Ideal untuk 12 - 30 Device Usaha",
+          "Monitoring Real-Time via Dashboard",
+        ],
       },
       {
         id: "prime",
@@ -97,7 +142,14 @@ export function InternetServicePage({ onBackToHome, initialCategory = "school" }
         speed: "500 Mbps",
         price: "565.000",
         image: layanan2,
-        features: ["Support CCTV & Live Streaming", "Real-Time Dashboard Traffic", "Prioritas Support 24/7"],
+        features: [
+          "Support Multi-CCTV & Live Streaming HD",
+          "Real-Time Dashboard Traffic Monitor",
+          "Prioritas Support Response 24/7",
+          "Unlimited High Speed Fiber Optic",
+          "Ideal untuk 30 - 60 Device Usaha",
+          "Garansi Uptime Jaringan 99.9%",
+        ],
       },
       {
         id: "wonder",
@@ -106,7 +158,14 @@ export function InternetServicePage({ onBackToHome, initialCategory = "school" }
         speed: "750 Mbps",
         price: "715.000",
         image: layanan2,
-        features: ["Dedicated Fiber Optic Link", "Guaranteed High Speed", "Account Manager Khusus"],
+        features: [
+          "Dedicated Fiber Optic Private Link",
+          "Guaranteed Speed Upload/Download 1:1",
+          "Personal Account Manager UMKM",
+          "Free Public IP Static Dual-Stack",
+          "Multi-AP Mesh System Included",
+          "Response Time Teknis < 15 Menit",
+        ],
       },
     ],
     hotel: [
@@ -117,7 +176,14 @@ export function InternetServicePage({ onBackToHome, initialCategory = "school" }
         speed: "200 Mbps",
         price: "750.000",
         image: layanan3,
-        features: ["Captive Portal Branding Hotel", "Unlimited Tanpa Limit", "Garansi Uptime 99.9%"],
+        features: [
+          "Captive Portal Login Branding Hotel",
+          "Unlimited Tanpa Limit Kuota",
+          "Garansi Uptime SLA 99.9%",
+          "Management Bandwidth per Room/Villa",
+          "Include Dual Router Enterprise",
+          "Support Teknisi On-Site 24/7",
+        ],
       },
       {
         id: "hotel-resort",
@@ -127,7 +193,14 @@ export function InternetServicePage({ onBackToHome, initialCategory = "school" }
         price: "1.450.000",
         isPopular: true,
         image: layanan3,
-        features: ["Management Bandwidth Tamu", "Dual Backup Failover Link", "Support On-Site Prioritas"],
+        features: [
+          "Management Bandwidth Tamu / VIP Room",
+          "Dual Backup Failover Redundancy Link",
+          "Support On-Site Prioritas < 15 Menit",
+          "Captive Portal Custom Logo & Promo Hotel",
+          "Free Public IP Static Dual-Stack",
+          "Monitoring Traffic Real-Time Dashboard",
+        ],
       },
       {
         id: "hotel-grand",
@@ -136,7 +209,14 @@ export function InternetServicePage({ onBackToHome, initialCategory = "school" }
         speed: "750 Mbps",
         price: "2.250.000",
         image: layanan3,
-        features: ["Dedicated 1:1 Symmetric Speed", "Free Public IP Static", "SLA Guarantee 99.9%"],
+        features: [
+          "Dedicated 1:1 Symmetric Upload/Download",
+          "Free Public IP Static Dual-Stack",
+          "SLA Guarantee 99.9% Always On",
+          "Multi-AP Mesh Access Point System",
+          "Personal Account Manager Hotel",
+          "24/7 Dedicated Network Operation Center",
+        ],
       },
       {
         id: "hotel-royal",
@@ -145,7 +225,14 @@ export function InternetServicePage({ onBackToHome, initialCategory = "school" }
         speed: "1 Gbps",
         price: "3.850.000",
         image: layanan3,
-        features: ["Enterprise Backhaul Direct Link", "Multi-AP Mesh System", "Dedicated Engineering Team"],
+        features: [
+          "Enterprise Backhaul Direct Core Link",
+          "Multi-AP Mesh System Hotel & Villa",
+          "Dedicated Engineering Team On-Site",
+          "Automatic Instant Failover Protection",
+          "Custom Bandwidth Allocator System",
+          "Executive VIP Priority Service",
+        ],
       },
     ],
     office: [
@@ -156,7 +243,14 @@ export function InternetServicePage({ onBackToHome, initialCategory = "school" }
         speed: "150 Mbps",
         price: "450.000",
         image: layanan4,
-        features: ["High Speed Fiber Optic", "Unlimited tanpa FUP", "Response Teknis < 15 Menit"],
+        features: [
+          "High Speed Enterprise Fiber Optic",
+          "Unlimited Tanpa Limit (No FUP)",
+          "Response Teknis Prioritas < 15 Menit",
+          "Ideal untuk 10 - 25 Device Perusahaan",
+          "Include Enterprise Dual-Band Router",
+          "Support Cloud Backup & Conference Call",
+        ],
       },
       {
         id: "office-corp",
@@ -166,7 +260,14 @@ export function InternetServicePage({ onBackToHome, initialCategory = "school" }
         price: "850.000",
         isPopular: true,
         image: layanan4,
-        features: ["Free IP Public Static", "Dual Router Failover", "Multi-User Corporate Access"],
+        features: [
+          "Free IP Public Static Dual Stack",
+          "Dual Router Automatic Failover",
+          "Multi-User Corporate Access System",
+          "Garansi Uptime SLA 99.9% Perusahaan",
+          "Dedicated Account Executive Support",
+          "Real-Time Traffic Analytics Dashboard",
+        ],
       },
       {
         id: "office-ent",
@@ -175,7 +276,14 @@ export function InternetServicePage({ onBackToHome, initialCategory = "school" }
         speed: "600 Mbps",
         price: "1.650.000",
         image: layanan4,
-        features: ["Dedicated SLA 99.9%", "Enterprise Security Firewall", "Support Priority 24/7"],
+        features: [
+          "Dedicated SLA 99.9% Garansi Resmi",
+          "Enterprise Security Firewall & VPN Support",
+          "Support Priority 24/7 Response Instant",
+          "Symmetrical Speed 1:1 Upload/Download",
+          "Backhaul Backup Direct Circuit Link",
+          "Account Manager Dedicated Perusahaan",
+        ],
       },
       {
         id: "office-dedicated",
@@ -184,7 +292,14 @@ export function InternetServicePage({ onBackToHome, initialCategory = "school" }
         speed: "1 Gbps",
         price: "2.950.000",
         image: layanan4,
-        features: ["Full 1:1 Symmetrical Upload/Download", "Direct Fiber Core Private", "Personal Account Executive"],
+        features: [
+          "Full 1:1 Symmetrical Dedicated Fiber Core",
+          "Direct Core Fiber Optic Private Circuit",
+          "Personal Account Executive Dedicated",
+          "Free Multiple Public IP Static Subnet",
+          "Custom Firewall & VPN Network Manager",
+          "Emergency Response On-Site < 15 Menit",
+        ],
       },
     ],
   };
@@ -218,6 +333,10 @@ export function InternetServicePage({ onBackToHome, initialCategory = "school" }
               </button>
               <span>/</span>
               <span className="text-gray-900 font-bold">Paket Langganan Internet</span>
+            </div>
+
+            <div className="text-xs font-bold text-blue-700 bg-blue-50 px-3.5 py-1.5 rounded-full border border-blue-100">
+              ⚡ Promo Pemasangan Gratis Hari Ini
             </div>
           </div>
         </div>
@@ -260,16 +379,16 @@ export function InternetServicePage({ onBackToHome, initialCategory = "school" }
         </div>
 
         {/* ========================================================================= */}
-        {/* 2. 4 CARDS GRID LAYOUT (SATAK ROYAL BLUE IDENTITY)                       */}
+        {/* 2. 4 CARDS GRID LAYOUT (BENEFITS BELOW BUTTONS & SCROLLABLE)              */}
         {/* ========================================================================= */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
           {currentPackages.map((pkg) => (
             <div
               key={pkg.id}
-              className={`bg-white rounded-3xl overflow-hidden border-2 transition-all duration-300 flex flex-col justify-between group ${
+              className={`bg-white rounded-3xl overflow-hidden border-2 transition-all duration-300 flex flex-col justify-between group hover:scale-[1.02] shadow-md hover:shadow-2xl ${
                 pkg.isPopular
-                  ? "border-blue-600 shadow-xl relative scale-[1.02]"
-                  : "border-blue-200/90 hover:border-blue-600 shadow-md hover:shadow-2xl"
+                  ? "border-blue-600 relative"
+                  : "border-blue-200/90 hover:border-blue-600"
               }`}
             >
               {/* Top Image Banner Box */}
@@ -291,7 +410,7 @@ export function InternetServicePage({ onBackToHome, initialCategory = "school" }
                   </div>
                 )}
 
-                {/* Speed Overlay Badge (SATAK Royal Blue Badge) */}
+                {/* Speed Overlay Badge */}
                 <div className="absolute bottom-3 left-3 bg-blue-600/95 backdrop-blur-md text-white p-2.5 sm:p-3 rounded-2xl shadow-xl border border-white/20">
                   <div className="text-[10px] font-bold opacity-90 leading-none">Kecepatan Hingga</div>
                   <div className="text-xl sm:text-2xl font-black leading-tight flex items-baseline gap-1">
@@ -303,7 +422,7 @@ export function InternetServicePage({ onBackToHome, initialCategory = "school" }
               {/* Card Body Content */}
               <div className="p-5 sm:p-6 text-center space-y-4 flex-1 flex flex-col justify-between bg-white">
                 
-                {/* Title & Speed Detail */}
+                {/* 1. Title & Speed Detail */}
                 <div className="space-y-1">
                   <h3 className="text-xl font-black text-blue-700 tracking-tight">
                     {pkg.name}
@@ -314,7 +433,7 @@ export function InternetServicePage({ onBackToHome, initialCategory = "school" }
                   </div>
                 </div>
 
-                {/* Pricing Box */}
+                {/* 2. Pricing Box */}
                 <div className="py-2 border-y border-gray-100 space-y-0.5">
                   <div className="flex items-baseline justify-center gap-1">
                     <span className="text-sm font-extrabold text-gray-900">Rp</span>
@@ -328,21 +447,17 @@ export function InternetServicePage({ onBackToHome, initialCategory = "school" }
                   </p>
                 </div>
 
-                {/* Key Features List */}
-                <ul className="space-y-2 text-xs text-gray-600 text-left pt-1 font-medium">
-                  {pkg.features.map((feat, idx) => (
-                    <li key={idx} className="flex items-center gap-2">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-blue-600 flex-shrink-0" />
-                      <span>{feat}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                {/* Dual Buttons (Primary Blue Langganan + Outline Chat Sales) */}
-                <div className="space-y-2.5 pt-3">
+                {/* 3. Action Buttons (Positioned directly under Pricing Box) */}
+                <div className="space-y-2.5 py-1">
                   {/* Button 1: Langganan Sekarang */}
                   <button
-                    onClick={() => handleOrderWa(pkg.name, pkg.speed, pkg.price)}
+                    onClick={() => {
+                      if (onNavigateToSubscribe) {
+                        onNavigateToSubscribe({ service: "internet", packageId: pkg.id });
+                      } else {
+                        handleOrderWa(pkg.name, pkg.speed, pkg.price);
+                      }
+                    }}
                     className="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white font-extrabold rounded-xl shadow-lg shadow-blue-600/30 transition-all hover:scale-[1.02] active:scale-[0.98] text-xs sm:text-sm cursor-pointer"
                   >
                     Langganan Sekarang
@@ -355,6 +470,24 @@ export function InternetServicePage({ onBackToHome, initialCategory = "school" }
                   >
                     Chat Sales
                   </button>
+                </div>
+
+                {/* 4. Fitur dan Benefit Section (At Bottom, Scrollable with Fixed Height) */}
+                <div className="pt-3 border-t border-gray-100 text-left space-y-2">
+                  <div className="flex items-center justify-between text-blue-700 font-extrabold text-xs">
+                    <span>Fitur dan Benefit</span>
+                    <ChevronUp className="w-4 h-4" />
+                  </div>
+
+                  {/* Scrollable Benefits List Container */}
+                  <div className="max-h-36 sm:max-h-40 overflow-y-auto pr-1 space-y-2 text-xs text-gray-700 font-medium custom-scrollbar">
+                    {pkg.features.map((feat, idx) => (
+                      <div key={idx} className="flex items-start gap-2 bg-blue-50/40 p-2 rounded-lg border border-blue-100/50">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-blue-600 flex-shrink-0 mt-0.5" />
+                        <span className="leading-tight text-[11px] font-semibold text-gray-800">{feat}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
 
               </div>

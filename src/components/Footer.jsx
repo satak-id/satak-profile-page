@@ -24,7 +24,7 @@ const WA_DEFAULT_MESSAGE =
 const WA_PENGADUAN_MESSAGE =
   "Halo Admin SATAK, saya mengalami kendala/pengaduan terkait layanan internet SATAK. Mohon bantuan penanganannya, terima kasih.";
 
-export function Footer() {
+export function Footer({ onNavigateToSubscribe }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalView, setModalView] = useState("main"); // "main" | "pengaduan"
 
@@ -287,10 +287,10 @@ export function Footer() {
               {/* Greeting Title */}
               <div>
                 <h3 className="text-xl font-extrabold text-gray-900 tracking-tight">
-                  Hai Sobat SATAK,
+                  Hai Sobat ATA
                 </h3>
                 <p className="text-base font-bold text-blue-600 mt-0.5">
-                  SATAK siap bantu kamu!
+                  Saya Siap Bantu Anda!
                 </p>
                 <p className="text-xs text-gray-500 mt-1 font-normal">
                   Pilih layanan bantuan yang Anda butuhkan di bawah ini:
@@ -300,16 +300,16 @@ export function Footer() {
               {/* Action Choice Buttons */}
               <div className="space-y-3 pt-2">
                 {/* Button 1: Mau Berlangganan */}
-                <a
-                  href={waUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={handleCloseModal}
-                  className="flex items-center justify-center gap-2.5 w-full py-3.5 px-4 bg-blue-600 hover:bg-blue-700 text-white font-extrabold rounded-2xl shadow-lg shadow-blue-600/30 transition-transform active:scale-[0.98] text-sm"
+                <button
+                  onClick={() => {
+                    handleCloseModal();
+                    if (onNavigateToSubscribe) onNavigateToSubscribe();
+                  }}
+                  className="flex items-center justify-center gap-2.5 w-full py-3.5 px-4 bg-blue-600 hover:bg-blue-700 text-white font-extrabold rounded-2xl shadow-lg shadow-blue-600/30 transition-transform active:scale-[0.98] text-sm cursor-pointer"
                 >
                   <MessageCircle className="w-4.5 h-4.5 fill-white" />
                   <span>Mau Berlangganan</span>
-                </a>
+                </button>
 
                 {/* Button 2: Layanan Pengaduan */}
                 <button

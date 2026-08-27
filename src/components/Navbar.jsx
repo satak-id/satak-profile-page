@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
   ChevronDown,
@@ -12,12 +12,40 @@ import {
 } from "lucide-react";
 import logoImg from "@/assets/logo.png";
 
-export function Navbar({ onNavigateToHome, onNavigateToInternetService, currentPage }) {
+export function Navbar({
+  onNavigateToHome,
+  onNavigateToInternetService,
+  onNavigateToSatakCloud,
+  onNavigateToSaasDigital,
+  onNavigateToSubscribe,
+  currentPage,
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const [activeTab, setActiveTab] = useState(
-    currentPage === "internet-service" ? "Layanan" : "Beranda"
+    currentPage === "internet-service" ||
+      currentPage === "satak-cloud" ||
+      currentPage === "saas-digital"
+      ? "Layanan"
+      : currentPage === "subscribe"
+      ? "Langganan"
+      : "Beranda"
   );
+
+  // Synchronize activeTab blue line whenever currentPage prop changes
+  useEffect(() => {
+    if (
+      currentPage === "internet-service" ||
+      currentPage === "satak-cloud" ||
+      currentPage === "saas-digital"
+    ) {
+      setActiveTab("Layanan");
+    } else if (currentPage === "subscribe") {
+      setActiveTab("Langganan");
+    } else if (currentPage === "home") {
+      setActiveTab((prev) => (prev === "Layanan" || prev === "Langganan" ? "Beranda" : prev));
+    }
+  }, [currentPage]);
 
   const serviceDropdownItems = [
     {
@@ -32,33 +60,48 @@ export function Navbar({ onNavigateToHome, onNavigateToInternetService, currentP
       name: "SATAK Cloud",
       subtext: "Penyimpanan Cloud & Server Managed",
       icon: Cloud,
-      category: "school",
+      category: "storage",
     },
     {
       id: "saas-digital",
       name: "SaaS & Layanan Digital",
       subtext: "Software Cloud & Integrasi Sistem",
       icon: Layers,
-      category: "school",
+      category: "pos",
     },
   ];
 
-  const handleNavClick = (linkName) => {
+  const handleNavClick = (linkName, href = "#") => {
     setActiveTab(linkName);
     setIsOpen(false);
-    if (linkName === "Beranda") {
+
+    if (currentPage !== "home") {
       if (onNavigateToHome) onNavigateToHome();
-    } else if (linkName === "Layanan") {
-      if (onNavigateToInternetService) onNavigateToInternetService("school");
+    }
+
+    if (href && href.startsWith("#") && href.length > 1) {
+      setTimeout(() => {
+        const targetElement = document.querySelector(href);
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 100);
+    } else if (href === "#") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
-  const handleDropdownItemClick = (category = "school") => {
+  const handleDropdownItemClick = (itemId, category = "school") => {
     setActiveTab("Layanan");
     setIsOpen(false);
     setMobileServicesOpen(false);
-    if (onNavigateToInternetService) {
-      onNavigateToInternetService(category);
+
+    if (itemId === "satak-cloud") {
+      if (onNavigateToSatakCloud) onNavigateToSatakCloud();
+    } else if (itemId === "saas-digital") {
+      if (onNavigateToSaasDigital) onNavigateToSaasDigital();
+    } else {
+      if (onNavigateToInternetService) onNavigateToInternetService(category);
     }
   };
 
@@ -69,7 +112,7 @@ export function Navbar({ onNavigateToHome, onNavigateToInternetService, currentP
           {/* Logo */}
           <div
             className="flex items-center cursor-pointer py-1"
-            onClick={() => handleNavClick("Beranda")}
+            onClick={() => handleNavClick("Beranda", "#")}
           >
             <img
               src={logoImg}
@@ -78,7 +121,7 @@ export function Navbar({ onNavigateToHome, onNavigateToInternetService, currentP
             />
           </div>
 
-          {/* Desktop Navigation with Dropdown */}
+          {/* Desktop Navigation with Dynamic Moving Blue Active Line */}
           <nav className="hidden md:flex items-center space-x-8">
             {[
               { name: "Beranda", href: "#" },
@@ -88,21 +131,23 @@ export function Navbar({ onNavigateToHome, onNavigateToInternetService, currentP
               { name: "Blog", href: "#blog" },
               { name: "Kontak", href: "#kontak" },
             ].map((link) => {
+              const isActive = activeTab === link.name;
+
               if (link.hasDropdown) {
                 return (
                   <div key={link.name} className="relative group py-2">
                     <div
                       className={`flex items-center gap-1 text-sm font-semibold transition-colors duration-200 cursor-default select-none ${
-                        activeTab === link.name
-                          ? "text-blue-700"
+                        isActive
+                          ? "text-blue-700 font-bold"
                           : "text-gray-600 group-hover:text-blue-600"
                       }`}
                     >
                       {link.name}
                       <ChevronDown className="w-4 h-4 text-gray-400 group-hover:text-blue-600 transition-transform duration-200 group-hover:rotate-180" />
                     </div>
-                    {activeTab === link.name && (
-                      <span className="absolute bottom-0 left-0 w-full h-[2.5px] bg-blue-600 rounded-full" />
+                    {isActive && (
+                      <span className="absolute bottom-0 left-0 w-full h-[2.5px] bg-blue-600 rounded-full animate-in fade-in zoom-in duration-300" />
                     )}
 
                     {/* Interactive Dropdown Menu Panel (Centered Under Layanan Item, Compact Spacing) */}
@@ -113,7 +158,7 @@ export function Navbar({ onNavigateToHome, onNavigateToInternetService, currentP
                           return (
                             <button
                               key={item.id}
-                              onClick={() => handleDropdownItemClick(item.category)}
+                              onClick={() => handleDropdownItemClick(item.id, item.category)}
                               className="flex items-center gap-2.5 w-full p-1.5 px-2.5 rounded-xl hover:bg-blue-50/80 transition-colors text-left group/item cursor-pointer"
                             >
                               <div className="p-1.5 rounded-lg bg-blue-50 text-blue-600 group-hover/item:bg-blue-600 group-hover/item:text-white transition-colors">
@@ -134,17 +179,17 @@ export function Navbar({ onNavigateToHome, onNavigateToInternetService, currentP
               return (
                 <div key={link.name} className="relative group py-2">
                   <button
-                    onClick={() => handleNavClick(link.name)}
+                    onClick={() => handleNavClick(link.name, link.href)}
                     className={`flex items-center gap-1 text-sm font-semibold transition-colors duration-200 cursor-pointer ${
-                      activeTab === link.name
-                        ? "text-blue-700"
+                      isActive
+                        ? "text-blue-700 font-bold"
                         : "text-gray-600 hover:text-blue-600"
                     }`}
                   >
                     {link.name}
                   </button>
-                  {activeTab === link.name && (
-                    <span className="absolute bottom-0 left-0 w-full h-[2.5px] bg-blue-600 rounded-full" />
+                  {isActive && (
+                    <span className="absolute bottom-0 left-0 w-full h-[2.5px] bg-blue-600 rounded-full animate-in fade-in zoom-in duration-300" />
                   )}
                 </div>
               );
@@ -155,7 +200,7 @@ export function Navbar({ onNavigateToHome, onNavigateToInternetService, currentP
           <div className="hidden md:flex items-center">
             <Button
               onClick={() => {
-                if (onNavigateToInternetService) onNavigateToInternetService("school");
+                if (onNavigateToSubscribe) onNavigateToSubscribe();
               }}
               className="font-semibold bg-blue-600 hover:bg-blue-700 text-white gap-2 shadow-lg shadow-blue-600/25 cursor-pointer"
             >
@@ -187,12 +232,16 @@ export function Navbar({ onNavigateToHome, onNavigateToInternetService, currentP
             { name: "Blog", href: "#blog" },
             { name: "Kontak", href: "#kontak" },
           ].map((link) => {
+            const isActive = activeTab === link.name;
+
             if (link.hasDropdown) {
               return (
                 <div key={link.name} className="space-y-1">
                   <button
                     onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
-                    className="flex items-center justify-between w-full text-left px-3 py-2 rounded-lg text-base font-semibold text-gray-700 hover:bg-gray-50"
+                    className={`flex items-center justify-between w-full text-left px-3 py-2 rounded-lg text-base font-semibold ${
+                      isActive ? "bg-blue-50 text-blue-600 font-bold" : "text-gray-700 hover:bg-gray-50"
+                    }`}
                   >
                     <span>{link.name}</span>
                     <ChevronDown className={`w-4 h-4 transition-transform ${mobileServicesOpen ? "rotate-180" : ""}`} />
@@ -203,7 +252,7 @@ export function Navbar({ onNavigateToHome, onNavigateToInternetService, currentP
                       {serviceDropdownItems.map((item) => (
                         <button
                           key={item.id}
-                          onClick={() => handleDropdownItemClick(item.category)}
+                          onClick={() => handleDropdownItemClick(item.id, item.category)}
                           className="block w-full text-left px-3 py-2 rounded-lg text-xs font-bold text-gray-600 hover:text-blue-600 hover:bg-blue-50"
                         >
                           {item.name}
@@ -218,10 +267,10 @@ export function Navbar({ onNavigateToHome, onNavigateToInternetService, currentP
             return (
               <button
                 key={link.name}
-                onClick={() => handleNavClick(link.name)}
+                onClick={() => handleNavClick(link.name, link.href)}
                 className={`block w-full text-left px-3 py-2 rounded-lg text-base font-semibold ${
-                  activeTab === link.name
-                    ? "bg-blue-50 text-blue-600"
+                  isActive
+                    ? "bg-blue-50 text-blue-600 font-bold"
                     : "text-gray-700 hover:bg-gray-50"
                 }`}
               >
@@ -232,7 +281,7 @@ export function Navbar({ onNavigateToHome, onNavigateToInternetService, currentP
           <div className="pt-2">
             <Button
               onClick={() => {
-                if (onNavigateToInternetService) onNavigateToInternetService("school");
+                if (onNavigateToSubscribe) onNavigateToSubscribe();
                 setIsOpen(false);
               }}
               className="w-full font-semibold bg-blue-600 hover:bg-blue-700 text-white gap-2 justify-center"
